@@ -23,7 +23,7 @@
  */
 function concatenateStrings(value1, value2) {
     //throw new Error('Not implemented');
-    return value1+value2;
+    return value1 + value2;
 }
 
 
@@ -131,7 +131,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    return  str.replace(value, '');
+    return str.replace(value, '');
 }
 
 /**
@@ -202,9 +202,9 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    let firstLine = '┌' + '─'.repeat( width - 2 ) + '┐\n';
-    let middleLine = '│' + ' '.repeat( width - 2 ) + '│\n';
-    let lastLine = '└' + '─'.repeat( width - 2 ) + '┘\n';
+    let firstLine = '┌' + '─'.repeat(width - 2) + '┐\n';
+    let middleLine = '│' + ' '.repeat(width - 2) + '│\n';
+    let lastLine = '└' + '─'.repeat(width - 2) + '┘\n';
 
     return firstLine + middleLine.repeat(height - 2) + lastLine;
 }
@@ -277,15 +277,15 @@ function isString(value) {
  */
 function getCardId(value) {
     let cards = [
-        'A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
-        'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
-        'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
-        'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'
-        ];
+        'A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+        'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
+        'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
+        'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'
+    ];
 
     let i = 0;
 
-    while ( i < cards.length ) {
+    while (i < cards.length) {
         if (!value.localeCompare(cards[i])) {
             return i;
         }
