@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value);
 }
 
 
@@ -56,7 +56,15 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   let year = date.getFullYear();
+   if ((year % 4) != 0) {
+      return false;
+   } else if ((year % 100) != 0) {
+      return true;
+   } else if ((year % 400) != 0) {
+      return false;
+   }
+   return true;
 }
 
 
@@ -76,7 +84,21 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   let span = Math.abs(startDate - endDate);
+   const hMsecs = 60 * 60 * 1000;
+   const mMsecs = 60 * 1000;
+   const sMsecs = 1000;
+   const hours = Math.floor(span / hMsecs);
+   span = span % hMsecs;
+
+   const min = Math.floor(span / mMsecs);
+   span = span % mMsecs;
+
+   const sec = Math.floor(span / sMsecs);
+   span = span % sMsecs;
+
+   return hours.toString().padStart(2, '0') + ':' + min.toString().padStart(2, '0') +
+      ':' + sec.toString().padStart(2, '0') + '.' + span.toString().padStart(3, '0');
 }
 
 
@@ -94,14 +116,31 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   let degr = clockAngle(date.getUTCHours() > 12 ? date.getUTCHours() - 12 : date.getUTCHours(), date.getUTCMinutes());
+   degr = degr % 360;
+   if (degr > 180) {
+      degr = degr - 180;
+   }
+   return degr * Math.PI / 180;
+}
+
+function clockAngle(hour, minute) {
+   var minAngle = 360 * (minute / 60);
+   var hourAngle = 360 * (hour / 12) + (360 / 12) * (minute / 60);
+
+   if (minAngle > hourAngle) {
+      return minAngle - hourAngle;
+   }
+   else {
+      return hourAngle - minAngle;
+   }
 }
 
 
 module.exports = {
-    parseDataFromRfc2822: parseDataFromRfc2822,
-    parseDataFromIso8601: parseDataFromIso8601,
-    isLeapYear: isLeapYear,
-    timeSpanToString: timeSpanToString,
-    angleBetweenClockHands: angleBetweenClockHands
+   parseDataFromRfc2822: parseDataFromRfc2822,
+   parseDataFromIso8601: parseDataFromIso8601,
+   isLeapYear: isLeapYear,
+   timeSpanToString: timeSpanToString,
+   angleBetweenClockHands: angleBetweenClockHands
 };
